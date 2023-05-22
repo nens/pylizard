@@ -79,7 +79,7 @@ def get_groundwaterstation(code, api_key=None, report=False, LIZARD_URL='https:/
         meta, index, timeseries_list = format_groundwaterstation_data(groundwaterstation_data, meta, index, timeseries_list)
         
     df = pd.DataFrame(meta,
-                            columns=['buis', 'filter_number', 'x', 'y', 'lat', 'lon', 'surface_level', 'bkf', 'okf'],
+                            columns=['buis', 'filter_number', 'x', 'y', 'lat', 'lon', 'surface_level', 'bkf', 'okf','ref'],
                             index=index)
     
     timeseries_list = pd.DataFrame(timeseries_list)
@@ -96,8 +96,8 @@ def get_groundwaterstation(code, api_key=None, report=False, LIZARD_URL='https:/
     df['uuid_hand']=df['code'].apply(lambda x: get_meting(x, timeseries, 'WNS9040.hand'))
     df['uuid_diver']=df['code'].apply(lambda x: get_meting(x, timeseries, 'WNS9040'))
     df = df.drop(['code'],axis=1)
-    df['bkf']=df['surface_level']-df['bkf']
-    df['okf']=df['surface_level']-df['okf']
+    # df['bkf']=df['surface_level']-df['bkf']
+    # df['okf']=df['surface_level']-df['okf']
     
     return df    
 
@@ -126,7 +126,7 @@ def polygon_to_groundwaterstations(polygon, api_key=None, report=False, LIZARD_U
 
         
     df = pd.DataFrame(meta,
-                            columns=['buis', 'filter_number', 'x', 'y', 'lat', 'lon', 'surface_level', 'bkf', 'okf'],
+                            columns=['buis', 'filter_number', 'x', 'y', 'lat', 'lon', 'surface_level', 'bkf', 'okf','ref'],
                             index=index)
     
     timeseries_list = pd.DataFrame(timeseries_list)
@@ -143,9 +143,8 @@ def polygon_to_groundwaterstations(polygon, api_key=None, report=False, LIZARD_U
     df['uuid_hand']=df['code'].apply(lambda x: get_meting(x, timeseries, 'WNS9040.hand'))
     df['uuid_diver']=df['code'].apply(lambda x: get_meting(x, timeseries, 'WNS9040'))
     df = df.drop(['code'],axis=1)
-    df['bkf']=df['surface_level']-df['bkf']
-    df['okf']=df['surface_level']-df['okf']
-    
+    # df['bkf']=df['surface_level']-df['bkf']
+    # df['okf']=df['surface_level']-df['okf']
     return df
 
 def get_timeseries(uuid, page_size=5000, api_key=None, tmin=None, tmax=None, report=False, proxydict={}):
