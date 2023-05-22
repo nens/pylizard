@@ -43,13 +43,14 @@ def format_groundwaterstation_data(groundwaterstation_data, meta, index, timeser
             filter_number = int(filter_code[-3:])
             bkf = filter['filter_top_level']
             okf = filter['filter_bottom_level']
+            ref = filter['top_level']
             
             if filter['timeseries']!=[]:
                 for TIMESERIE_URL in filter['timeseries']:
                     timeseries_list.append({'filter':filter_code, 'uuid':TIMESERIE_URL.split('/')[-2]})
 
 
-            meta.append([buis, filter_number, x, y, lat, lon, surface_level, bkf, okf]) #uuid_hand, uuid_diver
+            meta.append([buis, filter_number, x, y, lat, lon, surface_level, bkf, okf, ref]) #uuid_hand, uuid_diver
             index.append(filter_code)    
             
     return(meta, index, timeseries_list)
